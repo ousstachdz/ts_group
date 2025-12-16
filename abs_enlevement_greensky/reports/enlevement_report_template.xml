@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="enlevement_page">
+            <div class="page">
+				<h2 class="text-center">
+					<span> Bon d'enlèvement N° </span>
+					<span t-field="o.name"/>
+				</h2>
+				<p class="text-right">
+					<span> Date: </span>
+					<span t-field="o.scheduled_date"/>
+				</p>
+				
+				
+				<table name="client-infos" class="table table-bordered">
+					<thead >
+						<tr>
+							<td class="w-25"><strong>Nom du client</strong></td>
+							<td class="w-25"><strong>Réf. BC/Contrat/convention</strong></td>
+							<td class="w-25"><strong>Site d’enlèvement</strong></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span t-field="o.partner_id"/></td>
+							<td><span t-field="o.origin"/></td>
+							<td><span t-field="o.partner_id"/></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<br></br>
+				
+				<table name="logistique-infos" class="table table-bordered">
+					<thead >
+						<tr>
+							<td class="w-25"><strong>Nom du Chauffeur</strong></td>
+							<td class="w-25"><strong>Moyen de transport</strong></td>
+							<td class="w-25"><strong>Immatriculation</strong></td>
+							<td class="w-25"><strong>Date et heure de sortie</strong></td>
+						</tr>
+					</thead>
+					<tbody>
+						<t t-foreach="o.vehicle_ids" t-as="vehicle">
+							<tr>
+								<td><span t-field="vehicle.driver_id"/></td>
+								<td><span t-field="vehicle.vehicle_id"/></td>
+								<td><span t-field="vehicle.vehicle_id.license_plate"/></td>
+								<td><span t-field="vehicle.date_start"/></td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+				
+				<br></br>
+				<br></br>
+
+				<table class="table table-bordered"  name="stock_move_table">
+					<thead>
+						<tr>
+							<th name="th_sm_product"><strong>Designation</strong></th>
+							<th name="th_sm_typologie"><strong>Typologie(*)</strong></th>
+							<th name="th_sm_etat"><strong>Etat (**)</strong></th>
+							<th name="th_sm_quantite"><strong>Quantité Prévue</strong></th>
+							<th name="th_sm_quantite"><strong>Quantité Réceptionnée</strong></th>
+							<th name="th_sm_observation"><strong>Observation</strong></th>
+						</tr>
+					</thead>
+					<tbody>
+						<t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
+						<tr t-foreach="lines" t-as="move">
+							<td>
+								<span t-field="move.product_id"/>
+								<p t-if="move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
+									<span t-field="move.description_picking"/>
+								</p>
+							</td>
+							<td>
+								<span t-field="move.typologie"/>
+							</td>							
+							<td>
+								<span t-field="move.etat"/>
+							</td>
+							<td>
+								<span t-field="move.product_uom_qty"/>
+								<span t-field="move.product_uom"/>
+							</td>
+							<td>
+								<span t-field="move.quantity_done"/>
+								<span t-field="move.product_uom"/>
+							</td>
+							<td>
+								<span t-field="move.observation"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br></br>
+				<p>
+					<span> (*) : Merci de préciser quel type de déchets (DMA, DS, DSD) ; (**) : S = Solide, L= Liquide, G = Gazeux </span>
+				</p>
+				
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th name="th_sm_product"><strong><u>Représentant TSgroup <br></br>(nom prénom, qualité &amp; Visa <br></br><br></br><br></br><br></br></u></strong></th>
+							<th name="th_sm_product"><strong><u>Représentant du client <br></br>(nom prénom, qualité &amp; Visa)<br></br><br></br><br></br><br></br></u></strong></th>
+						</tr>
+					</thead>
+				</table>
+				
+				
+				<p class="text-center">
+					<span>_________________________________________________________________________________________________________________________ <br></br></span>
+					<span>Ce document est la propriété de TSgroup, il ne peut être reproduit sans son autorisation</span>
+				</p>
+            </div>
+		</template>
+
+        <template id="enlevement_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <t t-call="abs_enlevement_greensky.enlevement_page"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,25 @@
+<odoo>
+    <record id="stockview_picking_inherit_form" model="ir.ui.view">
+        <field name="name">stock_view_picking_inherit_form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_picking_move_tree']" position="before">
+                <button name="action_vehicle" type="object" class="oe_stat_button" icon="fa-truck icon">
+                    <div class="o_stat_info">
+                        <field name="vehicle_count" class="o_stat_value"/>
+                        <span class="o_stat_text">Transport</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button id="button_CreateVehicle" name="action_CreateVehicle" string="Créer Service Transport"
+                            class="btn-primary"
+                            type="object"
+
+                />
+            </xpath>
+        </field>
+
+    </record>
+</odoo>

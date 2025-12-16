@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="enlevement_report" model="ir.actions.report">
+            <field name="name">Bon d'enlevement</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">abs_enlevement_greensky.enlevement_report_template</field>
+            <field name="report_file">abs_enlevement_greensky.enlevement_report_template</field>
+            <field name="print_report_name">'Bon_Enlevement_%s' % object.name</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

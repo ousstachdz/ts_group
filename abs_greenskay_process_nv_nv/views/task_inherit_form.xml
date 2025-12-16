@@ -1,0 +1,47 @@
+<odoo>
+    <record id="task_inherit_form_greenskay" model="ir.ui.view">
+        <field name="name">task_inherit_form_greenskay</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_dependent_tasks']" position="before">
+                <button name="action_purchase" type="object" class="oe_stat_button" icon="fa-usd icon">
+                    <div class="o_stat_info">
+                        <field name="purchase_order_count" class="o_stat_value"/>
+                        <span class="o_stat_text">Achats</span>
+                    </div>
+                </button>
+                <button name="action_chargement" type="object" class="oe_stat_button" icon="fa-truck icon">
+                    <div class="o_stat_info">
+                        <field name="chargement_count" class="o_stat_value"/>
+                        <span class="o_stat_text">Chargement</span>
+                    </div>
+                </button>
+                <button name="action_of" type="object" class="oe_stat_button" icon="fa-wrench icon">
+                    <div class="o_stat_info">
+                        <field name="of_count" class="o_stat_value"/>
+                        <span class="o_stat_text">Traitement</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <xpath expr="//button[@name='action_assign_to_me']" position="after">
+
+                <button id="button_CreateChargement" name="action_CreateChargement" string="Créer Chargement"
+                            class="btn-primary"
+                            type="object"
+
+                />
+                <button id="button_Reapprovisionner" name="action_Reapprovisionner" string="Réapprovisionner le sous-traitant"
+                            class="btn-primary"
+                            type="object"
+                />
+                <button id="button_CreateAchat" name="action_CreateAchat" string="Créer Achats"
+                            class="btn-primary"
+                            type="object"
+                />
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<odoo>
+    
+
+
+    <record id="planning_slot_view_form_inherit" model="ir.ui.view">
+        <field name="name">planning.slot.form.inherit</field>
+        <field name="model">planning.slot</field>
+        <field name="inherit_id" ref="planning.planning_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='resource_id']" position="after">
+                <field name="vehicle_id"  invisible="1"/>
+                <field name="driver_id"   attrs="{'invisible': [('vehicle_id', '=', False)], 'required':[('vehicle_id','!=',False)]}" />
+                <field name="stock_picking_id"   attrs="{'invisible': [('vehicle_id', '=', False)], 'required':[('vehicle_id','!=',False)]}"
+               />
+             
+            </xpath>
+           
+
+           
+        </field>
+    </record>
+
+</odoo>

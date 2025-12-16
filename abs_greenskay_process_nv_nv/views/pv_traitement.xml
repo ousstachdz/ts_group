@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+      
+
+        <template id="pv_traitement">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang" />
+                <t t-call="web.basic_layout">
+                    
+                <style>
+                  
+                    body {
+                    font-size: 17px;
+                    }
+                </style>
+                    <div t-attf-class="header mb-2">
+                        <div class="text-center mb-2">
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                style="max-height: 120px;" alt="Logo" />
+                        </div>
+                        
+                    </div>
+                    <hr />
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-6" name="company_details">
+                            <div><strong>SARL TS ENVIRONNEMENT</strong> </div>
+                            <div><strong>ENTREPRISE DE COLLECTE DES DECHETS</strong></div>
+                             <div><strong> CAPITAL SOCIAL : 100 000.00 DA</strong></div>
+                            <div><strong>Réf :<t t-esc="o.name" /></strong> </div>
+                      
+    
+    
+                        </div>
+                        <div class="col-6" name="date">
+                            <div class="text-end text-middle"  name="pv_date">
+                                <strong>Alger,</strong>
+                                <t t-if="o.date_done">
+                                    <span class="m-0" t-out="o.date_done.strftime('%d %B %Y')" />
+                                </t>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                    <div class="text-center mt-4">
+                        <h5 style="text-decoration: underline;">PROCÈS VERBAL DE TRAITEMENT :</h5>
+                    </div>
+                    <div class="mt-4">
+                        
+                        <div class="page">
+    
+                           
+                            <p>
+                                En vertu de l'autorisation délivrée par le Ministère de l'Environnement et des Énergies Renouvelables sous le <strong>N° 083 du 06/09/2023</strong>, SARL TS ENVIRONNEMENT, ci-après dénommée "le Gestionnaire de Déchets", atteste du traitement adéquat des déchets spéciaux provenant de <strong><span t-out="o.partner_id.name" /></strong>
+                            </p>
+
+                            <p>
+                                <strong>Détails des Déchets :</strong>
+                                <ul>
+                                    
+                                    <li>Origine :  <t t-if="o.partner_id"><strong><span t-out="o.partner_id.name" /></strong> </t> </li>
+                                    <li>Type de Déchets :  <t t-if="o.move_ids"><span t-out="o.move_ids[0].product_id.name"/></t> </li>
+                                    <li>Quantités : <t t-if="o.move_ids"><span t-out="o.move_ids[0].quantity_done"/> <span t-out="o.move_ids[0].product_uom.name"/> </t></li>
+                                </ul>
+                            </p>
+
+                            <p>
+                                <strong>Processus de Traitement :</strong>
+                            </p>
+
+                            <p class="mt-3" style="padding-left: 30px">
+
+                                1. <strong>Collecte :</strong> Les déchets spéciaux, sous forme de <strong><t t-if="o.move_ids"><span t-out="o.move_ids[0].product_id.name"/></t></strong> , ont été collectés auprès de   <strong><span t-out="o.partner_id.name" /></strong>, conformément aux normes et réglementations en vigueur.
+                            </p>
+                            <p class="mt-3" style="padding-left: 30px">
+
+                                2. <strong>Transport :</strong> Les déchets ont été acheminés vers l’unité de traitement à bord de véhicules dédiés à cette activité, garantissant un transport sûr et adéquat.
+                            </p>
+                            <p class="mt-3" style="padding-left: 30px">
+
+                                3. <strong>Traitement :</strong> Les déchets ont été traités au sein de l'unité de traitement par    <strong>  <span t-out="o.company_id.name" /></strong>. Le processus de traitement s'est déroulé avec succès, garantissant la conformité aux normes environnementales
+                            </p>
+                            <p class=" mt-3" style="padding-left: 30px">
+
+                                4. <strong>Conclusion :</strong>
+                                Le Gestionnaire de Déchets atteste par la présente que les déchets spéciaux, de , ont été collectés, transportés et traités conformément aux réglementations en vigueur et en toute sécurité au sein du Centre d'Enfouissement Technique Public.
+                            </p>
+
+                            Bien à vous.									<div style="float: right"><strong  >   LA DIRECTION </strong></div>	  
+                       
+                            
+                
+                           
+    
+                           
+    
+                        </div>
+                    </div>
+    
+    
+                    <div t-attf-class="footer" style="font-size: 13px; color: grey;">
+                        <hr />
+                        <div class="row">
+                            <div class="col-12">
+                                SARL TS ENVIRONNEMENT, SIS Z.I Groupe H, Local 119 D, Rouïba-ALGER.<br />
+                                N° RC : 16/00-1050107/ NIF : 002116105010753/ NIS : 002116420312265/ A.I : 16 42 09 69 102 TEL : 0770 76 80 44 / 0770 53 46 65/   E-mail:  contact@tsgroup.com       Web Site : www.tsgroup.com
+                            </div>
+                        </div>
+                    </div>
+    
+    
+                </t>
+            </t>
+            
+        </template>
+
+
+       
+        <record id="pv_traitement_report" model="ir.actions.report">
+            <field name="name">PV de Traitement</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">abs_greenskay_process_nv_nv.pv_traitement</field>
+            <field name="report_file">abs_greenskay_process_nv_nv.pv_traitement</field>
+            <field name="print_report_name">'PROCÈS VERBAL DE TRAITEMENT :-%s' % object.name</field>
+            <field name="binding_model_id" ref="model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+</odoo>

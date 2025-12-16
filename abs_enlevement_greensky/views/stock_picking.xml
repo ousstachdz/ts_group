@@ -1,0 +1,26 @@
+<odoo>
+ <record id="enlevement_add_field" model="ir.ui.view">
+        <field name="name">add_new_fields_enlevement</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+			<xpath expr="//page[@name='operations']//tree//field[@name='product_uom_qty']" position="before">
+				<field name="etat" string="Etat"/>
+				<field name="typologie" string="Typologie de déchet"/>
+			</xpath>
+			<xpath expr="//page[@name='operations']//tree//field[@name='product_uom']" position="after">
+				<field name="observation" string="Observation"/>
+			</xpath>
+			<xpath expr="//page[@name='operations']//form//group//field[@name='product_uom_qty']" position="before">
+				<field name="etat"/>
+				<field name="typologie"/>
+			</xpath>
+			<xpath expr="//page[@name='operations']//form//group//field[@name='product_uom']" position="after">
+				<field name="observation"/>
+			</xpath>
+        </field>
+ </record>
+</odoo>
+
+
+

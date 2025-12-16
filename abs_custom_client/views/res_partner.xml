@@ -1,0 +1,18 @@
+<odoo>
+ <record id="add_new_fields_res" model="ir.ui.view">
+        <field name="name">add_new_fields_res_partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+				<field name="type_client"/>
+                <field name="nis" />
+                <field name="ai" />
+                <field name="rc" />
+                <field name="nif"/>
+                <field name="rib"/>
+                <field name="compte"/>
+            </xpath>
+        </field>
+ </record>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="new_task_project_notification" model="mail.template">
+            <field name="name">Nouveau Projet généré</field>
+            <field name="email_from">bilel94@gmail.com</field>
+            <field name="email_to">yara.darwich@finoutsource.dz</field>
+            <field name="subject">Nouveau Projet généré</field>
+            <field name="model_id" ref="sale.model_sale_order_line"/>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p>Bonjour,</p>
+    <p>Nouveau Project Créé: </p>
+    <t t-set="backend_url" t-value="'/web#model=project.project&amp;id=%s&amp;view_type=form' % (ctx.get('id'))" />
+    <a t-attf-href="{{backend_url}}"><t t-out="ctx.get('name')"/></a>
+
+</div></field>
+        </record>
+    </data>
+</odoo>
