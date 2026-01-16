@@ -4,14 +4,8 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
-            <xpath
-                expr="//field[@name='move_ids_without_package']/form/group"
-                position="after"
-            >
-                <newline />
-                <group name="allocations" string="Purchase Request Allocations">
-                    <field name="purchase_request_allocation_ids" />
-                </group>
+            <xpath expr="//field[@name='move_ids']/list/field[@name='lot_ids']" position="after">
+                <field name="purchase_request_allocation_ids" />
             </xpath>
         </field>
     </record>

@@ -6,7 +6,7 @@
         <field name="name">tier.definition.tree</field>
         <field name="model">tier.definition</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="model_id" />
                 <field name="name" />
                 <field name="review_type" />
@@ -16,7 +16,7 @@
                 <field name="sequence" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="active" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="tier_definition_view_form" model="ir.ui.view">
@@ -30,8 +30,7 @@
                         name="web_ribbon"
                         text="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
-                    />
+                        invisible="active"/>
                     <div class="oe_title">
                         <span class="oe_edit_only">Name</span>
                         <h1>
@@ -50,15 +49,15 @@
                             <field name="review_type" />
                             <field
                                 name="reviewer_id"
-                                attrs="{'invisible': [('review_type', '!=', 'individual')]}"
+                                invisible="review_type != 'individual'"
                             />
                             <field
                                 name="reviewer_group_id"
-                                attrs="{'invisible': [('review_type', '!=', 'group')]}"
+                                invisible="review_type != 'group'"
                             />
                             <field
                                 name="reviewer_field_id"
-                                attrs="{'invisible': [('review_type', '!=', 'field')]}"
+                                invisible="review_type != 'field'"
                                 options="{'no_create': True}"
                             />
                             <field name="valid_reviewer_field_ids" invisible="1" />
@@ -75,7 +74,7 @@
                             <div
                                 name="approve_sequence_bypass_div"
                                 class="o_row"
-                                attrs="{'invisible': [('approve_sequence', '=', False)]}"
+                                invisible="not approve_sequence"
                             >
                                 <field name="approve_sequence_bypass" />
                                 <span
@@ -91,7 +90,7 @@
                                     name="definition_domain"
                                     widget="domain"
                                     options="{'model': 'model'}"
-                                    attrs="{'invisible': [('definition_type', '!=', 'domain')]}"
+                                    invisible="definition_type != 'domain'"
                                 />
                             </group>
                         </page>
@@ -113,21 +112,22 @@
         <field name="model">tier.definition</field>
         <field name="arch" type="xml">
             <search>
-                <field name="model_id" />
-                <field name="reviewer_id" />
-                <field name="reviewer_group_id" />
-                <field name="active" />
-                <separator />
+                
+                
                 <filter
                     string="All"
                     name="all"
                     domain="['|', ('active', '=', False), ('active', '=', True)]"
                 />
-                <group expand="0" string="Group By">
+                <separator />
+                <field name="model_id" />
+                <field name="reviewer_id" />
+                <field name="reviewer_group_id" />
+                <field name="active" />
+                <group >
                     <filter
                         string="Model"
                         name="model_id"
-                        domain="[]"
                         context="{'group_by':'model_id'}"
                     />
                 </group>

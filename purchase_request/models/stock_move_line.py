@@ -31,7 +31,7 @@ class StockMoveLine(models.Model):
         ) % {
             "product_name": message_data["product_name"],
             "product_qty": message_data["product_qty"],
-            "product_uom": message_data["product_uom"],
+            "product_uom_id": message_data["product_uom_id"],
         }
         message += "</ul>"
         return message
@@ -58,7 +58,7 @@ class StockMoveLine(models.Model):
         ) % {
             "product_name": message_data["product_name"],
             "product_qty": message_data["product_qty"],
-            "product_uom": message_data["product_uom"],
+            "product_uom_id": message_data["product_uom_id"],
         }
         message += "</ul>"
         return message
@@ -69,7 +69,7 @@ class StockMoveLine(models.Model):
             "picking_name": ml.picking_id.name,
             "product_name": ml.product_id.name_get()[0][1],
             "product_qty": allocated_qty,
-            "product_uom": ml.product_uom_id.name,
+            "product_uom_id": ml.product_uom_id.name,
             "location_name": ml.location_dest_id.name_get()[0][1],
             "requestor": request.requested_by.partner_id.name,
         }

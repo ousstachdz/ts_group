@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2018-2019 ForgeFlow, S.L.
-     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
 <odoo>
     <template id="report_purchase_request">
         <t t-call="web.html_container">
@@ -96,7 +94,7 @@
                                                 groups="uom.group_uom"
                                             >
                                                 <span
-                                                    t-field="line_id.product_uom_id.category_id.name"
+                                                    t-field="line_id.product_uom_id.name"
                                                 />
                                             </td>
                                         </t>

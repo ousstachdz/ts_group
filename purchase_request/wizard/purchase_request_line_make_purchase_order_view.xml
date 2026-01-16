@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2018-2019 ForgeFlow, S.L.
-     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
 <odoo>
     <record id="view_purchase_request_line_make_purchase_order" model="ir.ui.view">
         <field name="name">Purchase Request Line Make Purchase Order</field>
@@ -26,24 +24,16 @@
                 <newline />
                 <group>
                     <field name="item_ids" nolabel="1" colspan="2">
-                        <tree name="Details" create="false" editable="bottom">
-                            <field
-                                name="line_id"
-                                options="{'no_open': true}"
-                                invisible="1"
-                            />
-                            <field name="request_id" attrs="{'readonly': True}" />
+                        <list name="Details" create="false" editable="bottom">
+                            <field name="line_id" options="{'no_open': true}" column_invisible="1"/>
+                            <field name="request_id" readonly="1"/>
                             <field name="product_id" />
                             <field name="name" />
                             <field name="product_qty" />
-                            <field
-                                name="product_uom_id"
-                                invisible="1"
-                                groups="!uom.group_uom"
-                            />
+                            <field name="product_uom_id" invisible="1" groups="!uom.group_uom"/>
                             <field name="product_uom_id" groups="uom.group_uom" />
                             <field name="keep_description" widget="boolean_toggle" />
-                        </tree>
+                        </list>
                     </field>
                 </group>
                 <newline />
@@ -59,10 +49,8 @@
             </form>
         </field>
     </record>
-    <record
-        id="action_purchase_request_line_make_purchase_order"
-        model="ir.actions.act_window"
-    >
+
+    <record id="action_purchase_request_line_make_purchase_order" model="ir.actions.act_window">
         <field name="name">Create RFQ</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">purchase.request.line.make.purchase.order</field>

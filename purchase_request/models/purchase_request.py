@@ -129,7 +129,7 @@ class PurchaseRequest(models.Model):
         default=_default_picking_type,
     )
     group_id = fields.Many2one(
-        comodel_name="procurement.group",
+        comodel_name="stock.reference",
         string="Procurement Group",
         copy=False,
         index=True,
@@ -203,20 +203,21 @@ class PurchaseRequest(models.Model):
             rec.line_count = len(rec.mapped("line_ids"))
 
     def action_view_purchase_request_line(self):
-        action = (
-            self.env.ref("purchase_request.purchase_request_line_form_action")
-            .sudo()
-            .read()[0]
-        )
-        lines = self.mapped("line_ids")
-        if len(lines) > 1:
-            action["domain"] = [("id", "in", lines.ids)]
-        elif lines:
-            action["views"] = [
-                (self.env.ref("purchase_request.purchase_request_line_form").id, "form")
-            ]
-            action["res_id"] = lines.ids[0]
-        return action
+        self.ensure_one() 
+        list_view_id = self.env.ref('purchase_request.purchase_request_line_tree').id
+        form_view_id = self.env.ref('purchase_request.purchase_request_line_form').id
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Purchase Request Line'),
+            'res_model': 'purchase.request.line',
+            'view_mode': 'list,form',
+            'domain': [('id', 'in', self.line_ids.ids)],
+            'views': [[list_view_id, 'list'], [form_view_id, 'form']],
+            'context': {'create': False, 'write':False},
+        }
+    
+
+
 
     @api.depends("state", "line_ids.product_qty", "line_ids.cancelled")
     def _compute_to_approve_allowed(self):

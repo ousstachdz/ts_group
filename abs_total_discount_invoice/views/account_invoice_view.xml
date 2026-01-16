@@ -6,10 +6,13 @@
         <field name="model">account.move</field>
 	<field name="inherit_id" ref ="account.view_move_form"/>	
         <field name="arch" type="xml">
-            <xpath expr="//group[@class='oe_subtotal_footer oe_right']" position="before">
-                <group>
-                    <field name ="discount_total"/>
-                </group>
+            <xpath expr="//group/field[@name='tax_totals']" position="before">
+                <div class="d-flex flex-column align-items-end">
+                    <div>
+                        <lable for="discount_total" class="lable  me-5 o_input_30ch">Remise globale :</lable>
+                        <field class="oe_inline text-dark me-4" nolabel="1" name="discount_total"  widget="monetary" readonly="1" />        
+                    </div>
+                </div>
             </xpath>
         </field> 
     </record>

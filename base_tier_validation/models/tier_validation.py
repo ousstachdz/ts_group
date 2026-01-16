@@ -215,19 +215,26 @@ class TierValidation(models.AbstractModel):
 
     def _compute_need_validation(self):
         for rec in self:
-            if isinstance(rec.id, models.NewId):
+            # Record not yet saved in DB
+            if not rec._origin.id:
                 rec.need_validation = False
                 continue
+
             tiers = self.env["tier.definition"].search(
                 [
                     ("model", "=", self._name),
                     ("company_id", "in", [False] + self.env.company.ids),
                 ]
             )
-            valid_tiers = any([rec.evaluate_tier(tier) for tier in tiers])
+
+            valid_tiers = any(rec.evaluate_tier(tier) for tier in tiers)
+
             rec.need_validation = (
-                not rec.review_ids and valid_tiers and rec._check_state_from_condition()
+                not rec.review_ids
+                and valid_tiers
+                and rec._check_state_from_condition()
             )
+
 
     def evaluate_tier(self, tier):
         if tier.definition_domain:

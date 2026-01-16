@@ -96,10 +96,30 @@ class TierReview(models.Model):
     def _get_reviewer_fields(self):
         return ["reviewer_id", "reviewer_group_id", "reviewer_group_id.users"]
 
-    @api.depends(lambda self: self._get_reviewer_fields())
+    @api.depends("reviewer_id", "reviewer_group_id")
     def _compute_reviewer_ids(self):
+        """Compute the users who can review this tier."""
         for rec in self:
-            rec.reviewer_ids = rec._get_reviewers()
+            reviewers = self.env["res.users"]  # empty recordset
+
+            # Add single reviewer if set
+            if rec.reviewer_id:
+                reviewers |= rec.reviewer_id
+
+            # Add all users from the reviewer group
+            if rec.reviewer_group_id:
+                reviewers |= rec.reviewer_group_id.users
+
+            # Add users from dynamic reviewer field if set
+            if rec.reviewer_field_id:
+                resource = self.env[rec.model].browse(rec.res_id)
+                reviewer_field = getattr(resource, rec.reviewer_field_id.name, False)
+                if reviewer_field and reviewer_field._name == "res.users":
+                    reviewers |= reviewer_field
+                else:
+                    raise ValidationError(_("There are no res.users in the selected field"))
+
+            rec.reviewer_ids = reviewers
 
     @api.depends("reviewer_ids")
     def _compute_todo_by(self):

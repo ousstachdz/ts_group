@@ -9,8 +9,8 @@ class StockRule(models.Model):
 
     @api.model
     def _prepare_purchase_request_line(self, request_id, procurement):
-        procurement_uom_po_qty = procurement.product_uom._compute_quantity(
-            procurement.product_qty, procurement.product_id.uom_po_id
+        procurement_uom_po_qty = procurement.product_uom_id._compute_quantity(
+            procurement.product_qty, procurement.product_id.uom_id
         )
         return {
             "product_id": procurement.product_id.id,
@@ -18,7 +18,7 @@ class StockRule(models.Model):
             "date_required": "date_planned" in procurement.values
             and procurement.values["date_planned"]
             or fields.Datetime.now(),
-            "product_uom_id": procurement.product_id.uom_po_id.id,
+            "product_uom_id": procurement.product_id.uom_id.id,
             "product_qty": procurement_uom_po_qty,
             "request_id": request_id.id,
             "move_dest_ids": [

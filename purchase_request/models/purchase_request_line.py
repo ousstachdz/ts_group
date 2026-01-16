@@ -25,9 +25,7 @@ class PurchaseRequestLine(models.Model):
         comodel_name="uom.uom",
         string="UoM",
         tracking=True,
-        domain="[('category_id', '=', product_uom_category_id)]",
     )
-    product_uom_category_id = fields.Many2one(related="product_id.uom_id.category_id")
     product_qty = fields.Float(
         string="Quantity", tracking=True, digits="Product Unit of Measure"
     )
@@ -293,8 +291,8 @@ class PurchaseRequestLine(models.Model):
         for rec in self:
             rec.purchased_qty = 0.0
             for line in rec.purchase_lines.filtered(lambda x: x.state != "cancel"):
-                if rec.product_uom_id and line.product_uom != rec.product_uom_id:
-                    rec.purchased_qty += line.product_uom._compute_quantity(
+                if rec.product_uom_id and line.product_uom_id != rec.product_uom_id:
+                    rec.purchased_qty += line.product_uom_id._compute_quantity(
                         line.product_qty, rec.product_uom_id
                     )
                 else:
@@ -339,7 +337,7 @@ class PurchaseRequestLine(models.Model):
 
     @api.model
     def _calc_new_qty(self, request_line, po_line=None, new_pr_line=False):
-        purchase_uom = po_line.product_uom or request_line.product_id.uom_po_id
+        purchase_uom = po_line.product_uom_id or request_line.product_id.uom_id
         # TODO: Not implemented yet.
         #  Make sure we use the minimum quantity of the partner corresponding
         #  to the PO. This does not apply in case of dropshipping

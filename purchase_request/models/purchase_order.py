@@ -31,7 +31,7 @@ class PurchaseOrder(models.Model):
             ) % {
                 "prl_name": line["name"],
                 "prl_qty": line["product_qty"],
-                "prl_uom": line["product_uom"],
+                "prl_uom": line["product_uom_id"],
                 "prl_date_planned": line["date_planned"],
             }
         message += "</ul>"
@@ -50,7 +50,7 @@ class PurchaseOrder(models.Model):
                     data = {
                         "name": request_line.name,
                         "product_qty": line.product_qty,
-                        "product_uom": line.product_uom.name,
+                        "product_uom_id": line.product_uom_id.name,
                         "date_planned": date_planned,
                     }
                     requests_dict[request_id][request_line.id] = data
@@ -203,11 +203,11 @@ class PurchaseOrderLine(models.Model):
         message += "<ul>"
         message += _(
             "<li><b>%(product_name)s</b>: "
-            "Received quantity %(product_qty)s %(product_uom)s</li>"
+            "Received quantity %(product_qty)s %(product_uom_id)s</li>"
         ) % {
             "product_name": message_data["product_name"],
             "product_qty": message_data["product_qty"],
-            "product_uom": message_data["product_uom"],
+            "product_uom_id": message_data["product_uom_id"],
         }
         message += "</ul>"
         return message
@@ -217,7 +217,7 @@ class PurchaseOrderLine(models.Model):
             "request_name": request_line.request_id.name,
             "product_name": request_line.product_id.name_get()[0][1],
             "product_qty": allocated_qty,
-            "product_uom": alloc.product_uom_id.name,
+            "product_uom_id": alloc.product_uom_id.name,
             "requestor": request_line.request_id.requested_by.partner_id.name,
         }
 

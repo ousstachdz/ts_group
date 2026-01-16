@@ -105,7 +105,7 @@ class PurchaseRequestAllocation(models.Model):
         ) % {
             "product_name": message_data["product_name"],
             "product_qty": message_data["product_qty"],
-            "product_uom": message_data["product_uom"],
+            "product_uom_id": message_data["product_uom_id"],
         }
         message += "</ul>"
         return message
@@ -116,7 +116,7 @@ class PurchaseRequestAllocation(models.Model):
             "po_name": po_line.order_id.name,
             "product_name": po_line.product_id.name_get()[0][1],
             "product_qty": allocated_qty,
-            "product_uom": po_line.product_uom.name,
+            "product_uom_id": po_line.product_uom_id.name,
         }
 
     def _notify_allocation(self, allocated_qty):
