@@ -65,7 +65,13 @@ class TierValidation(models.AbstractModel):
     )
     has_comment = fields.Boolean(compute="_compute_has_comment")
     next_review = fields.Char(compute="_compute_next_review")
+    hide_reviews = fields.Boolean(compute="_compute_hide_reviews")
 
+
+    def _compute_hide_reviews(self):
+        for rec in self:
+            rec.hide_reviews = rec[self._state_field] not in self._state_from
+            
     def _compute_has_comment(self):
         for rec in self:
             has_comment = rec.review_ids.filtered(
@@ -525,10 +531,16 @@ class TierValidation(models.AbstractModel):
     @api.model
     def _update_counter(self, review_counter):
         self.review_ids._compute_can_review()
-        notifications = []
         channel = "base.tier.validation/updated"
-        notifications.append([self.env.user.partner_id, channel, review_counter])
-        self.env["bus.bus"]._sendmany(notifications)
+        notifications = [
+            [self.env.user.partner_id, channel, review_counter]
+        ]
+
+        bus = self.env["bus.bus"]
+        for notification in notifications:
+            partner, channel, message = notification
+            bus._sendone(partner, channel, message)
+
 
     def unlink(self):
         self.mapped("review_ids").unlink()

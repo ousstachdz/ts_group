@@ -108,7 +108,7 @@ class TierReview(models.Model):
 
             # Add all users from the reviewer group
             if rec.reviewer_group_id:
-                reviewers |= rec.reviewer_group_id.users
+                reviewers |= rec.reviewer_group_id.user_ids
 
             # Add users from dynamic reviewer field if set
             if rec.reviewer_field_id:
@@ -137,8 +137,8 @@ class TierReview(models.Model):
             rec.todo_by = todo_by
 
     def _get_reviewers(self):
-        if self.reviewer_id or self.reviewer_group_id.users:
-            return self.reviewer_id + self.reviewer_group_id.users
+        if self.reviewer_id or self.reviewer_group_id.user_ids:
+            return self.reviewer_id + self.reviewer_group_id.user_ids
         reviewer_field = self.env["res.users"]
         if self.reviewer_field_id:
             resource = self.env[self.model].browse(self.res_id)
