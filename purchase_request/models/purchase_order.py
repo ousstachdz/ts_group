@@ -130,7 +130,7 @@ class PurchaseOrderLine(models.Model):
             "name": _("Purchase Request Lines"),
             "type": "ir.actions.act_window",
             "res_model": "purchase.request.line",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": domain,
         }
 

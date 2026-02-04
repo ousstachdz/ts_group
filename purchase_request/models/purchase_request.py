@@ -78,17 +78,14 @@ class PurchaseRequest(models.Model):
         index=True,
     )
     assigned_to = fields.Many2one(
-        comodel_name="res.users",
-        string="Approver",
+        'res.users',
+        string='Approver',
         tracking=True,
-        domain=lambda self: [
-            (
-                "groups_id",
-                "in",
-                self.env.ref("purchase_request.group_purchase_request_manager").id,
-            )
-        ],
-        index=True,
+    )
+    purchase_request_manager_ids = fields.Many2many(
+        'res.users',
+        compute='_compute_purchase_request_manager_ids',
+        store=True
     )
     description = fields.Text()
     company_id = fields.Many2one(
@@ -152,6 +149,22 @@ class PurchaseRequest(models.Model):
         store=True,
     )
 
+
+    @api.depends('requested_by')
+    def _compute_purchase_request_manager_ids(self):
+        group = self.env.ref(
+            'purchase_request.group_purchase_request_manager',
+            raise_if_not_found=False
+        )
+        user_ids = []
+
+        if group:
+            for user in self.env['res.users'].search([]):
+                if group in user.group_ids:
+                    user_ids.append(user.id)
+        self.purchase_request_manager_ids = user_ids
+
+    
     @api.depends("line_ids", "line_ids.estimated_cost")
     def _compute_estimated_cost(self):
         for rec in self:

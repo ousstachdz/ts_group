@@ -36,7 +36,7 @@ class stock_picking_inherit(models.Model):
             'name': 'Transport',
             'res_model': 'fleet.vehicle.assignation.log',
             'domain': [('vehicle_id', 'in', self.env['planning.slot'].search([('stock_picking_id', '=', self.id)]).mapped('resource_id.vehicle_id').ids)],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
         }
 

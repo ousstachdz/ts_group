@@ -33,7 +33,7 @@ class project_task_inherit(models.Model):
             'name': 'Chargement',
             'res_model': 'stock.picking',
             'domain': [('origin', '=', self.project_id.name)],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
         }
     def action_purchase(self):
@@ -42,7 +42,7 @@ class project_task_inherit(models.Model):
             'name': 'Achats',
             'res_model': 'purchase.order',
             'domain': [('origin', '=', self.project_id.name)],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
         }
 
@@ -81,7 +81,7 @@ class project_task_inherit(models.Model):
             'name': 'Traitement',
             'res_model': 'mrp.production',
             'domain': [('origin', '=', self.project_id.name)],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
         }
 

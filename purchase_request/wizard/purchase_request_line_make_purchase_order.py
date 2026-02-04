@@ -134,7 +134,6 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             or False,
             "picking_type_id": picking_type.id,
             "company_id": company.id,
-            "group_id": group_id.id,
         }
         return data
 
