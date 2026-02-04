@@ -91,7 +91,7 @@ class PurchaseOrderLine(models.Model):
                 partner_id=self.partner_id,
                 quantity=self.product_qty,
                 date=date,
-                uom_id=self.product_uom,
+                uom_id=self.product_uom_id,
             )
             self._apply_value_from_seller(seller)
         return res

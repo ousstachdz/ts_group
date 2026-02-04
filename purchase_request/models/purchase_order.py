@@ -215,7 +215,7 @@ class PurchaseOrderLine(models.Model):
     def _prepare_request_message_data(self, alloc, request_line, allocated_qty):
         return {
             "request_name": request_line.request_id.name,
-            "product_name": request_line.product_id.name_get()[0][1],
+            "product_name": request_line.product_id.get_display_name()[0][1],
             "product_qty": allocated_qty,
             "product_uom_id": alloc.product_uom_id.name,
             "requestor": request_line.request_id.requested_by.partner_id.name,

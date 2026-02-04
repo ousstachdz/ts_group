@@ -114,7 +114,7 @@ class PurchaseRequestAllocation(models.Model):
         return {
             "request_name": request.name,
             "po_name": po_line.order_id.name,
-            "product_name": po_line.product_id.name_get()[0][1],
+            "product_name": po_line.product_id.get_display_name()[0][1],
             "product_qty": allocated_qty,
             "product_uom_id": po_line.product_uom_id.name,
         }

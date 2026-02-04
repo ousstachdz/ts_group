@@ -67,7 +67,7 @@ class StockMoveLine(models.Model):
         return {
             "request_name": request.name,
             "picking_name": ml.picking_id.name,
-            "product_name": ml.product_id.name_get()[0][1],
+            "product_name": ml.product_id.get_display_name()[0][1],
             "product_qty": allocated_qty,
             "product_uom_id": ml.product_uom_id.name,
             "location_name": ml.location_dest_id.name_get()[0][1],
