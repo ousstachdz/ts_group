@@ -27,7 +27,7 @@ class StockMoveLine(models.Model):
         message += "<ul>"
         message += _(
             "<li><b>%(product_name)s</b>: "
-            "Transferred quantity %(product_qty)s %(product_uom)s</li>"
+            "Transferred quantity %(product_qty)s %(product_uom_id)s</li>"
         ) % {
             "product_name": message_data["product_name"],
             "product_qty": message_data["product_qty"],
@@ -54,7 +54,7 @@ class StockMoveLine(models.Model):
         message += "<ul>"
         message += _(
             "<li><b>%(product_name)s</b>: "
-            "Transferred quantity %(product_qty)s %(product_uom)s</li>"
+            "Transferred quantity %(product_qty)s %(product_uom_id)s</li>"
         ) % {
             "product_name": message_data["product_name"],
             "product_qty": message_data["product_qty"],
@@ -67,10 +67,10 @@ class StockMoveLine(models.Model):
         return {
             "request_name": request.name,
             "picking_name": ml.picking_id.name,
-            "product_name": ml.product_id.get_display_name()[0][1],
+            "product_name": ml.product_id.display_name,
             "product_qty": allocated_qty,
             "product_uom_id": ml.product_uom_id.name,
-            "location_name": ml.location_dest_id.name_get()[0][1],
+            "location_name": ml.location_dest_id.complete_name,
             "requestor": request.requested_by.partner_id.name,
         }
 
