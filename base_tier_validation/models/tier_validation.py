@@ -560,12 +560,12 @@ class TierValidation(models.AbstractModel):
         new_node = etree.fromstring(str_element)
         return new_node
 
-    def _add_tier_validation_reviews(self, node, params):
-        str_element = self.env["ir.qweb"]._render(
-            "base_tier_validation.tier_validation_reviews", params
-        )
-        new_node = etree.fromstring(str_element)
-        return new_node
+    # def _add_tier_validation_reviews(self, node, params):
+    #     str_element = self.env["ir.qweb"]._render(
+    #         "base_tier_validation.tier_validation_reviews", params
+    #     )
+    #     new_node = etree.fromstring(str_element)
+    #     return new_node
 
     @api.model
     def get_view(self, view_id=None, view_type="form", **options):
@@ -600,8 +600,8 @@ class TierValidation(models.AbstractModel):
                 for new_element in new_node:
                     node.addprevious(new_element)
                 # _add_tier_validation_reviews process
-                new_node = self._add_tier_validation_reviews(node, params)
-                new_arch, new_models = View.postprocess_and_fields(new_node, self._name)
+                # new_node = self._add_tier_validation_reviews(node, params)
+                # new_arch, new_models = View.postprocess_and_fields(new_node, self._name)
                 for model in new_models:
                     if model in all_models:
                         continue

@@ -7,9 +7,15 @@ class project_task_inherit(models.Model):
     purchase_order_count = fields.Integer(compute='_compute_purchase_count', string="Puchase Count")
     chargement_count = fields.Integer(compute='_compute_chargement', string="Chargement Count")
     of_count = fields.Integer(compute='_compute_of', string="Manufacturing  order Count")
-
+    purchase_request_ids = fields.One2many('purchase.request', 'task_id', string="Demande d'achat")
+    purchase_request_count = fields.Integer("Nbre. demande d'achat", compute='_compute_purchase_request_count')
 
     #### COMPUTE FUNCTIONS ####
+    @api.depends('purchase_request_ids')
+    def _compute_purchase_request_count(self):
+        for rec in self:
+            rec.purchase_request_count = len(rec.purchase_request_ids)
+
     def _compute_purchase_count(self):
         for rec in self:
             rec.purchase_order_count = rec.env['purchase.order'].search_count([('origin', '=', rec.project_id.name)])
@@ -26,6 +32,17 @@ class project_task_inherit(models.Model):
             rec.of_count = rec.env['mrp.production'].search_count([('origin', '=', rec.project_id.name)])
 
     #### ACTION FUNCTIONS ####
+
+    def action_view_purchase_request(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': "Demande d'achat",
+            'res_model': 'purchase.request',
+            'domain': [('id', '=', self.purchase_request_ids.ids)],
+            'view_mode': 'list,form',
+            'target': 'current',
+        }
+    
     def action_chargement(self):
 
         return {
@@ -69,11 +86,19 @@ class project_task_inherit(models.Model):
         'product_uom_qty': line.product_qty,
         'location_id': 4,  
         'location_dest_id': 8,
-        'name': f"Move for {line.product_id.name}",
     
 
                 }) for line in lead_lines]
             })
+
+    def action_create_purchase_request(self):
+        for rec in self:
+            self.env['purchase.request'].create({
+                'origin': self.project_id.name,
+                'task_id': rec.id,
+            })
+
+    
         
     def action_of(self):
         return {

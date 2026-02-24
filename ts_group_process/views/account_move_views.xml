@@ -10,6 +10,14 @@
             </xpath>  
             <xpath expr="//group[@name='sale_info_group']/field[@name='invoice_user_id']" position="after">
                 <field name="posted_by" readonly="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_post'][1]" position="attributes">
+                <attribute name="groups">ts_group_process.group_confirm_invoice</attribute>  
+                
+            </xpath> 
+            <xpath expr="//button[@name='action_post'][2]" position="attributes">
+                <attribute name="groups">ts_group_process.group_confirm_invoice</attribute>  
+                
             </xpath> 
         </field>
     </record>

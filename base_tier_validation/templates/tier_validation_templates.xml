@@ -79,7 +79,7 @@
         </div>
         </div>
     </template>
-    <template id="tier_validation_reviews">
+    <!-- <template id="tier_validation_reviews">
         <field
             name="review_ids"
             widget="tier_validation"
@@ -99,5 +99,5 @@
             <field name="comment" />
         </list>
             </field>
-    </template>
+    </template> -->
 </odoo>

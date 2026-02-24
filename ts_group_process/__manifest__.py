@@ -6,11 +6,12 @@
     'category': 'custom',
     'version': '1.0',
 
-    'depends': ['base','account', 'fleet', 'crm', 'product', 'sale', 'planning', 'project', 'purchase', 'mrp'],
+    'depends': ['base','account', 'fleet', 'crm', 'product', 'sale', 'planning', 'project', 'purchase', 'mrp', 'purchase_request'],
     'data': [
         'data/mail_template.xml',
 
         'security/ir.model.access.csv',
+        'security/security.xml',
 
         'reports/sale_order_report.xml',
         'reports/ir_actions_report.xml',

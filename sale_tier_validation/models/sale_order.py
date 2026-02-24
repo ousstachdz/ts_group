@@ -5,7 +5,7 @@ class SaleOrder(models.Model):
     _name = "sale.order"
     _inherit = ["sale.order", "tier.validation"]
     _state_from = ["draft"]
-    _state_to = ["sent","sale", "done"]
+    _state_to = ["sent", "sale", "done"]
 
     _tier_validation_manual_config = False
 

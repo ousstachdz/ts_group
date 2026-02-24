@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="group_confirm_invoice" model="res.groups">
+        <field name="name">Confirmation de la facture</field>
+    </record>
+</odoo>
