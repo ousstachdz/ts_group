@@ -11,6 +11,8 @@ class SaleOrder(models.Model):
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
         required=True
     )
+    ref_invoice = fields.Char('Réf. Contrat', related='opportunity_id.ref_invoice')
+    ref_cahier_charge = fields.Char('Réf. Cahier de charge')
 
     def action_confirm(self):
         stage = self.env['crm.stage'].search([('sequence', '>', 3)], limit=1)
@@ -34,6 +36,11 @@ class SaleOrder(models.Model):
             raise UserError(_("Vous n'êtes pas pas autorisé à modifier ce devis"))
         return super().write(vals)
     
+    def _prepare_invoice(self):
+        res = super()._prepare_invoice()
+       
+        res["ref_invoice"] = self.ref_invoice
+        return res
     
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"

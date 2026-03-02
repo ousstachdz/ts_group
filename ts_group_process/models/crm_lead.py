@@ -8,6 +8,7 @@ class CrmLead(models.Model):
     lead_line_ids = fields.One2many(
         comodel_name="crm.lead.product.line", inverse_name="lead_id", string="Lead Product Lines"
     )
+    ref_invoice = fields.Char('Réf. Contrat')
 
 
 
@@ -27,7 +28,8 @@ class CrmLeadProductLine(models.Model):
         domain=[('type_tax_use', '=', 'sale')],
         default=lambda self: self.env.companies.account_sale_tax_id or self.env.companies.root_id.account_sale_tax_id,
     )
-    
+
+
     @api.onchange("product_id")
     def _onchange_product_id(self):
         if not self.product_id:

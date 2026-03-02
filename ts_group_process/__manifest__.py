@@ -32,7 +32,7 @@
         # 'views/pv_traitement.xml',
         'views/res_company_views.xml',
         'views/res_users_views.xml',
-        'views/project_task_views.xml'
-        # 'views/sale_order_views.xml'
+        'views/project_task_views.xml',
+        'views/sale_order_views.xml'
     ],
 }

@@ -3,7 +3,9 @@ class AccountMove(models.Model):
     _inherit = "account.move"
     
     posted_by = fields.Many2one('res.users', string='Confirmé Par')
-    
+    ref_invoice = fields.Char('Réf. Contrat')
+
+
     def action_post(self):
         self.posted_by = self.env.user.id
         return super(AccountMove, self).action_post()
@@ -13,3 +15,9 @@ class AccountMove(models.Model):
     #     the default one. For example please review the l10n_ar module """
     #     self.ensure_one()
     #     return 'abs_greenskay_process_nv_nv.new_report_invoice_document'
+
+    def _prepare_invoice(self):
+        res = super()._prepare_invoice()
+       
+        res["ref_invoice"] = self.ref_invoice
+        return res
