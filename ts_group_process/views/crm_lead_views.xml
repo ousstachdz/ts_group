@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="crm.crm_lead_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tag_ids']" position="after">
-                <field name="ref_invoice"/>
+                <field name="ref_contract"/>
                 
             </xpath>
             <page name="extra" position="after">
@@ -23,6 +23,19 @@
                     </field>
                 </page>
             </page>
+        </field>
+    </record>
+
+    
+    <record id="crm_lead_inherit_view_search" model="ir.ui.view">
+        <field name="name">crm.lead.inherit.view.search</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/filter[@name='salesperson']" position="before">
+                <filter string="Ref. Contract" name="ref_contract" context="{'group_by':'ref_contract'}"/>
+            </xpath>
+            
         </field>
     </record>
 

@@ -3,7 +3,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
     
     posted_by = fields.Many2one('res.users', string='Confirmé Par')
-    ref_invoice = fields.Char('Réf. Contrat')
+    ref_contract = fields.Char('Réf. Contrat')
 
 
     def action_post(self):
@@ -16,8 +16,4 @@ class AccountMove(models.Model):
     #     self.ensure_one()
     #     return 'abs_greenskay_process_nv_nv.new_report_invoice_document'
 
-    def _prepare_invoice(self):
-        res = super()._prepare_invoice()
-       
-        res["ref_invoice"] = self.ref_invoice
-        return res
+    

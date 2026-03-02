@@ -19,9 +19,23 @@
                 </button>
             </xpath> -->
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="ref_invoice" readonly="True"/>
+                <field name="ref_contract" readonly="True"/>
                 <field name="ref_cahier_charge"  readonly="state != 'draft'"/>
             </xpath>
+        </field>
+    </record>
+
+    
+    <record id="sale_order_inherit_view_search" model="ir.ui.view">
+        <field name="name">sale.order.inherit.view.search</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/filter[@name='salesperson']" position="before">
+                <filter name="cahier_charge" string="Cahier de charge" context="{'group_by': 'ref_cahier_charge'}"/>
+                
+            </xpath>
+            
         </field>
     </record>
 </odoo>

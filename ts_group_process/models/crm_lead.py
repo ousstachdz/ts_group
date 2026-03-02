@@ -8,7 +8,7 @@ class CrmLead(models.Model):
     lead_line_ids = fields.One2many(
         comodel_name="crm.lead.product.line", inverse_name="lead_id", string="Lead Product Lines"
     )
-    ref_invoice = fields.Char('Réf. Contrat')
+    ref_contract = fields.Char('Réf. Contrat')
 
 
 

@@ -20,7 +20,7 @@
                 
             </xpath> 
             <xpath expr="//field[@name='currency_id']" position="after">
-                <field name="ref_invoice"/>
+                <field name="ref_contract"/>
             </xpath>
         </field>
     </record>

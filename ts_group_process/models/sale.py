@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
         required=True
     )
-    ref_invoice = fields.Char('Réf. Contrat', related='opportunity_id.ref_invoice')
+    ref_contract = fields.Char('Réf. Contrat', related='opportunity_id.ref_contract')
     ref_cahier_charge = fields.Char('Réf. Cahier de charge')
 
     def action_confirm(self):
@@ -39,7 +39,7 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         res = super()._prepare_invoice()
        
-        res["ref_invoice"] = self.ref_invoice
+        res["ref_contract"] = self.ref_contract
         return res
     
 class SaleOrderLine(models.Model):
