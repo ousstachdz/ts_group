@@ -10,6 +10,7 @@ class respartner(models.Model):
     nis = fields.Char(string='NIS')
     rc = fields.Char(string='RC')
     ai = fields.Char(string='AI')
+    tin = fields.Char(string='TIN')
     nif = fields.Char(string='NIF')
     rib = fields.Char(string='RIB')
     compte = fields.Char(string='Compte')

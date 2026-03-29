@@ -6,13 +6,14 @@
     'category': 'custom',
     'version': '1.0',
 
-    'depends': ['base','account', 'fleet', 'crm', 'product', 'sale', 'planning', 'project', 'purchase', 'mrp', 'purchase_request'],
+    'depends': ['base','account', 'fleet', 'crm', 'product', 'sale', 'planning', 'project', 'purchase', 'mrp', 'purchase_request', 'sign'],
     'data': [
         'data/mail_template.xml',
 
         'security/ir.model.access.csv',
         'security/security.xml',
-
+        
+        'reports/layout/web_external_layout_inherit.xml',
         'reports/sale_order_report.xml',
         'reports/ir_actions_report.xml',
         'reports/invoice_report.xml',

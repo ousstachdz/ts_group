@@ -8,6 +8,7 @@
 				<field name="type_client"/>
                 <field name="nis" />
                 <field name="ai" />
+                <field name="tin"/>
                 <field name="rc" />
                 <field name="nif"/>
                 <field name="rib"/>

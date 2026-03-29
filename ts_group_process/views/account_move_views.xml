@@ -19,7 +19,7 @@
                 <attribute name="groups">ts_group_process.group_confirm_invoice</attribute>  
                 
             </xpath> 
-            <xpath expr="//field[@name='currency_id']" position="after">
+            <xpath expr="//field[@name='invoice_date']" position="after">
                 <field name="ref_contract"/>
             </xpath>
         </field>
