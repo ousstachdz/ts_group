@@ -19,6 +19,7 @@ class FleetVehicle(models.Model):
             'name': res.name.replace('/Pas de plaque',''),
             'vehicle_id':res.id,
             'resource_type':'material',
-            'flexible_hours':True})
+            # 'flexible_hours':True
+            })
         return res
     

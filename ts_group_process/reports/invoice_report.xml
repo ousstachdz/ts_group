@@ -10,22 +10,34 @@
                                     <div class="col-2 mb2 mt2">
                                         <img t-if="o.env.user.company_id.logo" t-att-src="image_data_uri(o.env.user.company_id.logo)" alt="Logo" style="width:240px;height:85px"/>
                                     </div>
-                                    <div class="col-8 text-center">
+                                    <div class="col-6 text-center">
                                         
+                                    </div>
+                                    <div class="col-3 mb2 mt2">
+                                        <img t-att-src="'/ts_group_process/static/img/tsg_logo.png'" alt="Logo" style="width:240px;height:85px"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div t-attf-class="footer">
-                            <div class="text-end">
+                            <div class="row">
+                                <div class="col-2">
+                                </div>
+                                <div class="col-8 text-center text-muted">
+                                        <strong>Merci d'avoir choisi Notre Entreprise .</strong><br/>
+                                        <strong>Merci pour votre confiance.</strong>
+                                </div>
                                 
-                                <small>
-                                    <span>Page</span>
-                                    <span class="page" />
-                                    /
-                                    <span class="topage" />
-                                </small>
+                                <div class="text-end col-2">
+                                    
+                                    <small>
+                                        <span>Page</span>
+                                        <span class="page" />
+                                        /
+                                        <span class="topage" />
+                                    </small>
+                                </div>
                             </div>
                         </div>
                         <t t-call="web.external_layout">
@@ -40,6 +52,9 @@
                                     p {
                                         padding: 0!important;
                                         margin:0!important;
+                                    }
+                                    .page{
+                                        font-family: 'Arial' !important;
                                     }
                                 </style>
 
@@ -76,7 +91,7 @@
                                         </span>
                                         <span t-if="o.company_id.partner_id.rib">
                                             <strong>RIB : </strong>
-                                            <t t-esc="o.company_id.partner_id.rib" />
+                                            <t t-esc="o.partner_bank_id.acc_number" />
                                             <br/>
                                         </span>
                                         <span>
@@ -138,24 +153,24 @@
 
                                     </div>
                                 </div>
-                               
-                                <h3 class="mt-3">
-                                    <span>Facture N° :</span>
-                                    <span t-if="o.name != '/'" t-field="o.name" />
-                                </h3>
-                        
-                                <div class="row">
-                                    <div class="col-8" style="padding: 5px;">
-                                        <span>Merci d'avoir choisi Notre Entreprise .</span>
+                                <div class="row mt-5">
+                                    <div class="col-7">
+                                        <h3 style="font-family: 'Arial';">
+                                            <span>Facture N° :</span>
+                                            <span t-if="o.name != '/'" t-field="o.name" />
+                                        </h3>
                                     </div>
-
                                     <div class="col-4 text-start" name="invoice_date">
-                                        <strong>Date:</strong>
+                                        <strong  style="font-family: 'Arial'; font-size: 14px;">Date:</strong>
                                         <span class="m-0" t-field="o.invoice_date" />
                                     </div>
                                 </div>
-                                <div style="padding: 5px;">
-                                    <span>Merci pour votre confiance.</span>
+                                
+                                <div>
+                                    <span><strong>Réf. Contrat:</strong> <span t-field="o.ref_contract" /></span>
+                                </div>
+                                <div>
+                                    <span><strong>Réf. Bon de Commande:</strong><span t-field="o.ref" /></span>
                                 </div>
 
                                 <t t-set="display_discount"

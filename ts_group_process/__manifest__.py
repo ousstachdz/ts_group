@@ -36,4 +36,9 @@
         'views/project_task_views.xml',
         'views/sale_order_views.xml'
     ],
+    'assets': {
+    'web.report_assets_pdf': [
+        'ts_group_process/static/src/css/fonts.css',
+    ],
+    },
 }
