@@ -5,7 +5,7 @@ from datetime import datetime
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import get_lang
-
+import logging
 
 class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
     _name = "purchase.request.line.make.purchase.order"
@@ -197,7 +197,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             ("name", "=", name),
             ("product_id", "=", item.product_id.id),
             ("product_uom_id", "=", vals["product_uom_id"]),
-            ("analytic_distribution", "=?", item.line_id.analytic_distribution),
+            ("analytic_distribution", "!=", False),
         ]
         if self.sync_data_planned:
             date_required = item.line_id.date_required
@@ -240,6 +240,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             # product and UoM to sum quantities instead of creating a new
             # po line
             domain = self._get_order_line_search_domain(purchase, item)
+            logging.info('\n \n \n domain %s', domain)
             available_po_lines = po_line_obj.search(domain)
             new_pr_line = True
             # If Unit of Measure is not set, update from wizard.
