@@ -38,10 +38,6 @@
                 <button id="button_Reapprovisionner" name="action_Reapprovisionner" string="Réapprovisionner le sous-traitant"
                             class="btn-primary"
                             type="object"/>
-                <button id="button_CreateAchat" name="action_CreateAchat" string="Créer Achats"
-                            class="btn-primary"
-                            type="object"/>
-
                 <button id="button_create_purchase_request" name="action_create_purchase_request" string="Créer la demande d'achat"
                             class="btn-primary"
                             type="object"/>
