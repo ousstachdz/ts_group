@@ -89,7 +89,7 @@
                                             <t t-esc="o.company_id.partner_id.phone" />
                                             <br/>
                                         </span>
-                                        <span t-if="o.company_id.partner_id.rib">
+                                        <span t-if="o.partner_bank_id.acc_number">
                                             <strong>RIB : </strong>
                                             <t t-esc="o.partner_bank_id.acc_number" />
                                             <br/>
