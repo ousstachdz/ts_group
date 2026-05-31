@@ -290,11 +290,13 @@
                                     </p>
                                     
                                 </div>
-                                <div style="page-break-inside: avoid;">
-                                    <strong>CONDITIONS DE PAIMENT:</strong><br/>
-                                    <t t-out="o.company_id.invoice_terms" class="text-dark"/>
-                                    
-                                </div>
+                                <t t-if="o.company_id.invoice_terms">
+                                    <div style="page-break-inside: avoid;">
+                                        <strong>CONDITIONS DE PAIMENT:</strong><br/>
+                                        <t t-out="o.company_id.invoice_terms" class="text-dark"/>
+                                        
+                                    </div>
+                                </t>
                             </div>
                         </t>
                     
