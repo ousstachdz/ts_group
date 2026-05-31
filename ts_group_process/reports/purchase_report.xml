@@ -35,7 +35,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <img t-att-src="'/ts_group_process/static/img/footer.png'"
+                            <img t-att-src="'/ts_group_process/static/img/tsg_logo.png'"
                             style="height: 120px;"  alt="Footer" />
                         </div>
                     </div>
