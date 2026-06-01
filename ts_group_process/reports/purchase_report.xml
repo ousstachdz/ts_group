@@ -82,8 +82,12 @@
                     <div class="row mb-5">
                         <div class="col-6" style="border: 1px solid black; padding: 5px;">
                             <h3>
-
-                                <span>Bon d'Achat N° :</span>
+                                <t t-if="o.state == 'purchase'">
+                                    <span>Bon de commande N° :</span>
+                                </t>
+                                <t t-else="">
+                                    <span>Demande de prix N° :</span>
+                                </t>
                                 <span t-if="o.name != '/'" t-field="o.name" />
                             </h3>
                         </div>

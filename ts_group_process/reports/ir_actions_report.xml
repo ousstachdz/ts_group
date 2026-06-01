@@ -3,12 +3,12 @@
     <data noupdate="0">
             
         <record id="nv_report_sale" model="ir.actions.report">
-            <field name="name">Bon de commande</field>
+            <field name="name">Devis/Bon de commande</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">sale.report_saleorder</field>
             <field name="report_file">sale.report_saleorder</field>
-            <field name="print_report_name">'Bon de Commande-%s' % object.name</field>
+            <field name="print_report_name">(object.state == 'sale' and 'Bon de Commande-%s' % object.name) or 'Devis-%s' % object.name</field>
             <field name="binding_model_id" ref="model_sale_order" />
             <field name="binding_type">report</field>
         </record>
@@ -25,12 +25,12 @@
         </record>
 
         <record id="nv_report_purchase" model="ir.actions.report">
-            <field name="name">Bon Achat</field>
+            <field name="name">Bon de commande fournisseur</field>
             <field name="model">purchase.order</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">ts_group_process.purchase_report_main</field>
             <field name="report_file">ts_group_process.purchase_report_main</field>
-            <field name="print_report_name">'Bon Achat-%s' % object.name</field>
+            <field name="print_report_name"> (object.state == 'purchase' and 'Bon de commande-%s' % object.name) or 'Demande de prix-%s' % object.name</field>
             <field name="binding_model_id" ref="model_purchase_order" />
             <field name="binding_type">report</field>
         </record>
