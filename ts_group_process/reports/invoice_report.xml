@@ -190,7 +190,7 @@
                                         <th name="th_priceunit" class="text-center" style="color:white !important">
                                             <span>Prix HT</span>
                                         </th>
-                                        <th name="th_price_unit" t-if="display_discount" class="text-center" style="color:white !important">
+                                        <th name="th_discount" t-if="display_discount" class="text-center" style="color:white !important">
                                             <span>Rem.%</span>
                                         </th>
                                         <th name="th_subtotal" class="text-center" style="color:white !important">
@@ -233,7 +233,7 @@
 
                                                     <td class="text-center o_price_total">
 
-                                                        <span class="text-nowrap" t-field="line.price_total" />
+                                                        <span class="text-nowrap" t-field="line.price_subtotal" />
                                                     </td>
                                                 </t>
                                                 <t t-if="line.display_type == 'line_section'">

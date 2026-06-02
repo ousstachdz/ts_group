@@ -102,8 +102,9 @@
                     <div class="page">
                         <div class="oe_structure"/>
             
-                       
-            
+                        <t t-set="display_discount"
+                                    t-value="any(l.discount for l in o.order_line)" />
+
                         <table class="table table-sm o_main_table table-borderless mt-4 purchase-table">
                             <thead style="background: #007e5d; color:white; width:100%!important;">
                                     <th name="th_description" class="text-start" style="color:white !important">
@@ -115,8 +116,8 @@
                                     <th name="th_priceunit" class="text-end" style="color:white !important">
                                         <span>Prix HT</span>
                                     </th>
-                                    <th name="th_price_unit" t-if="display_discount" class="text-end" style="color:white !important">
-                                        <span>Disc.%</span>
+                                    <th name="th_discount" t-if="display_discount" class="text-end" style="color:white !important">
+                                        <span>Rem.%</span>
                                     </th>
                                     <th name="th_subtotal" class="text-end" style="color:white !important">
                                         <span>Prix TTC</span>
@@ -146,6 +147,9 @@
                                             </td>
                                             <td class="text-end">
                                                 <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td t-if="display_discount" class="text-end">
+                                                <span t-field="line.discount"/>
                                             </td>
                                             <td class="text-end">
                                                 <span t-field="line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>

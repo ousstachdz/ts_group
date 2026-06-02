@@ -112,8 +112,8 @@
                                 <th name="th_priceunit" class="text-end" style="color:white !important">
                                     <span>Prix HT</span>
                                 </th>
-                                <th name="th_price_unit" t-if="display_discount" class="text-end" style="color:white !important">
-                                    <span>Disc.%</span>
+                                <th name="th_discount" t-if="display_discount" class="text-end" style="color:white !important">
+                                    <span>Rem.%</span>
                                 </th>
                                 <th name="th_subtotal" class="text-end" style="color:white !important">
                                     <span>Prix TTC</span>
@@ -141,9 +141,8 @@
                                                 <span t-field="line.discount"/>
                                             </td>
                                       
-                                            <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
-                                                <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
-                                                <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                            <td name="td_subtotal" class="text-end o_price_total">
+                                                <span t-field="line.price_total"/>
                                             </td>
                                         </t>
                                        
